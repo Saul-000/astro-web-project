@@ -19,5 +19,8 @@ phases:
       - mvn -s settings.xml package
 artifacts:
   files:
+    - appspec.yml
     - target/astro-web-project.war
+    - scripts/**/*
   discard-paths: no
+
