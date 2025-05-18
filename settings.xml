@@ -1,0 +1,33 @@
+<settings>
+<servers>
+  <server>
+    <id>astro-astro-devops-cicd</id>
+    <username>aws</username>
+    <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+  </server>
+</servers>
+
+<profiles>
+  <profile>
+    <id>astro-astro-devops-cicd</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+      <repository>
+        <id>astro-astro-devops-cicd</id>
+        <url>https://astro-311278774144.d.codeartifact.ap-northeast-1.amazonaws.com/maven/astro-devops-cicd/</url>
+      </repository>
+    </repositories>
+  </profile>
+</profiles>
+
+<mirrors>
+  <mirror>
+    <id>astro-astro-devops-cicd</id>
+    <name>astro-astro-devops-cicd</name>
+    <url>https://astro-311278774144.d.codeartifact.ap-northeast-1.amazonaws.com/maven/astro-devops-cicd/</url>
+    <mirrorOf>*</mirrorOf>
+  </mirror>
+</mirrors>
+</settings>
