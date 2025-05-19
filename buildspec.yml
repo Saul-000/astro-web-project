@@ -1,39 +1,24 @@
 version: 0.2
 
-env:
-  variables:
-    CODEARTIFACT_DOMAIN: astro
-    CODEARTIFACT_DOMAIN_OWNER: 311278774144
-    AWS_REGION: ap-northeast-1
-
 phases:
   install:
     runtime-versions:
       java: corretto8
-    commands:
-      - echo "Installing dependencies..."
-      
   pre_build:
     commands:
-      - echo "Logging in to AWS CodeArtifact..."
-      - CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $CODEARTIFACT_DOMAIN --domain-owner $CODEARTIFACT_DOMAIN_OWNER --region $AWS_REGION --query authorizationToken --output text)
+      - echo Logging in to AWS CodeArtifact...
+      - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain astro --domain-owner <311278774144> --region ap-northeast-1 --query authorizationToken --output text`
       - export CODEARTIFACT_AUTH_TOKEN
-      - echo "CodeArtifact token retrieved"
-
   build:
     commands:
-      - echo "Build started on $(date)"
+      - echo Build started on `date`
       - mvn clean install -s settings.xml
-      - echo "Checking build output..."
-      - ls -l target/ # Verify artifact exists
-
   post_build:
     commands:
-      - echo "Build completed on $(date)"
-      - echo "Packaging complete"
-
+      - echo Build completed on `date`
+      - echo Packaging artifacts...
+      - mvn package -s settings.xml
 artifacts:
   files:
     - target/*.war
-  base-directory: target
-  discard-paths: yes
+  discard-paths: no
